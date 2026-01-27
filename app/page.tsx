@@ -1,4 +1,5 @@
 import HeroSection from "@/components/hero-section";
+// Trigger rebuild: 2026-01-27
 import Layout from "@/components/layout";
 import Link from "next/link";
 
