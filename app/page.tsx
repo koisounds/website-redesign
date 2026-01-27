@@ -1,0 +1,114 @@
+import HeroSection from "@/components/hero-section";
+import Layout from "@/components/layout";
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <Layout>
+      <HeroSection />
+
+      {/* Dashboard Grid */}
+      <section className="section-wrapper relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <SectionCard
+            title="Skills"
+            desc="The tech stack powering my cloud architecture."
+            href="/skills"
+            variant="secondary"
+            icon="⚡"
+          />
+          <SectionCard
+            title="Experience"
+            desc="My professional journey and impact."
+            href="/experience"
+            variant="tertiary"
+            icon="💼"
+          />
+          <SectionCard
+            title="Projects"
+            desc="Case studies in automation and security."
+            href="/projects"
+            variant="primary"
+            icon="🚀"
+          />
+        </div>
+      </section>
+
+      {/* Contact Banner */}
+      <section className="section-wrapper pt-0">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-bg-elevated to-bg p-8 md:p-12 text-center group">
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-primary/10 via-transparent to-accent-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+          <h2 className="relative z-10 text-3xl md:text-5xl font-display font-bold text-white mb-6">
+            Ready to scale securely?
+          </h2>
+          <p className="relative z-10 text-text-secondary text-lg max-w-2xl mx-auto mb-10">
+            Let's collaborate on building resilient, compliant, and high-performance cloud infrastructure.
+          </p>
+
+          <Link
+            href="/contact"
+            className="relative z-10 inline-flex items-center gap-3 rounded-full bg-white text-bg px-8 py-4 text-base font-bold transition-transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+          >
+            Get In Touch
+            <span>→</span>
+          </Link>
+
+          {/* Background decoration */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_50%)] pointer-events-none" />
+        </div>
+      </section>
+    </Layout>
+  );
+}
+
+function SectionCard({ title, desc, href, variant, icon }: { title: string, desc: string, href: string, variant: 'primary' | 'secondary' | 'tertiary', icon: string }) {
+  const variants = {
+    primary: {
+      hoverBorder: "hover:border-accent-primary/50",
+      iconBgValid: "group-hover:bg-accent-primary/20",
+      iconBorder: "group-hover:border-accent-primary/30",
+    },
+    secondary: {
+      hoverBorder: "hover:border-accent-secondary/50",
+      iconBgValid: "group-hover:bg-accent-secondary/20",
+      iconBorder: "group-hover:border-accent-secondary/30",
+    },
+    tertiary: {
+      hoverBorder: "hover:border-accent-tertiary/50",
+      iconBgValid: "group-hover:bg-accent-tertiary/20",
+      iconBorder: "group-hover:border-accent-tertiary/30",
+    }
+  };
+
+  const v = variants[variant];
+
+  return (
+    <Link href={href} className="group block h-full">
+      <div className={`
+        glass-card h-full p-8 flex flex-col justify-between
+        ${v.hoverBorder} transition-all duration-500
+      `}>
+        <div>
+          <div className={`
+            w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl mb-6
+            border border-white/10 ${v.iconBgValid} ${v.iconBorder} transition-colors duration-300
+          `}>
+            {icon}
+          </div>
+          <h3 className="text-2xl font-display font-bold text-white mb-3 group-hover:text-glow transition-all">
+            {title}
+          </h3>
+          <p className="text-text-secondary leading-relaxed">
+            {desc}
+          </p>
+        </div>
+
+        <div className="mt-8 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white/50 group-hover:text-white transition-colors">
+          Explore
+          <span className="group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
