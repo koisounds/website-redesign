@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navigation = [
@@ -12,9 +12,58 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
+const cloudNav = [
+  { name: "AWS", href: "/projects?cloud=aws", icon: "aws" },
+  { name: "GCP", href: "/projects?cloud=gcp", icon: "gcp" },
+  { name: "Azure", href: "/projects?cloud=azure", icon: "azure" },
+] as const;
+
+function CloudIcon({ icon }: { icon: "aws" | "gcp" | "azure" }) {
+  const size = 18;
+  if (icon === "aws") {
+    return (
+      <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 14" fill="none" aria-hidden>
+        <path fill="#FF9900" d="M6.7 14c-.2 0-.4-.1-.4-.3L4.7 7l-1.4 6.6c0 .2-.2.3-.4.3-.2 0-.4-.1-.4-.3L0 .4C0 .2.1 0 .3 0c.2 0 .3.1.4.2l2.6 11 1.4-6.6c0-.2.2-.3.4-.3.2 0 .4.1.4.3l2.9 6.6c0 .2-.1.3-.3.3H6.7z" />
+        <path fill="#232F3E" d="M23.2 11l-2.2-6.6c0-.2-.2-.3-.4-.3-.2 0-.4.1-.4.3l-2.2 6.6c0 .2.1.3.3.3h.8c.2 0 .4-.1.4-.3l1.4-4.3 1.4 4.3c0 .2.2.3.4.3h.8c.2 0 .4-.2.3-.3z" />
+      </svg>
+    );
+  }
+  if (icon === "gcp") {
+    return (
+      <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path fill="#4285F4" d="M12 4.5L4.5 12h3.8l3.7-3.7 3.7 3.7h3.8L12 4.5z" />
+        <path fill="#34A853" d="M12 19.5l7.5-7.5h-3.8l-3.7 3.7-3.7-3.7H4.5L12 19.5z" />
+        <path fill="#FBBC04" d="M19.5 12v7.5h-7.5l3.7-3.7 3.8 3.7V12z" />
+        <path fill="#EA4335" d="M4.5 12V4.5h7.5l-3.7 3.7-3.8-3.7v7.5z" />
+      </svg>
+    );
+  }
+  return (
+    <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <defs>
+        <linearGradient id="az-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0078D4" />
+          <stop offset="100%" stopColor="#00BCF2" />
+        </linearGradient>
+      </defs>
+      <path fill="url(#az-nav)" d="M12 3L3 21h6l3-9 3 9h6L12 3z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const cloudParam = searchParams.get("cloud");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +103,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
 
-          <nav className="hidden md:flex gap-1" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+            {cloudNav.map((item) => {
+              const isCloudActive = pathname === "/projects" && cloudParam === item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors duration-300 rounded-full hover:text-white ${isCloudActive ? "text-white" : "text-text-secondary"}`}
+                  title={`${item.name} projects`}
+                >
+                  {isCloudActive && (
+                    <span className="absolute inset-0 bg-white/10 rounded-full -z-10" />
+                  )}
+                  <CloudIcon icon={item.icon} />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+            <span className="mx-1 h-4 w-px bg-white/20" aria-hidden />
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -86,6 +153,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-accent-secondary/50 bg-accent-secondary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-accent-secondary transition-all hover:bg-accent-secondary hover:text-white hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
               >
+                <LinkedInIcon className="h-4 w-4" />
                 Connect
               </Link>
             </div>
