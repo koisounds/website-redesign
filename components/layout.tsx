@@ -13,43 +13,10 @@ const navigation = [
 ];
 
 const cloudNav = [
-  { name: "AWS", href: "/projects?cloud=aws", icon: "aws" },
-  { name: "GCP", href: "/projects?cloud=gcp", icon: "gcp" },
-  { name: "Azure", href: "/projects?cloud=azure", icon: "azure" },
+  { name: "AWS", href: "/projects?cloud=aws", icon: "aws", image: "/aws-logo.png" },
+  { name: "GCP", href: "/projects?cloud=gcp", icon: "gcp", image: "/gcp-logo.png" },
+  { name: "Azure", href: "/projects?cloud=azure", icon: "azure", image: "/azure-logo.png" },
 ] as const;
-
-function CloudIcon({ icon }: { icon: "aws" | "gcp" | "azure" }) {
-  const size = 18;
-  if (icon === "aws") {
-    return (
-      <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 14" fill="none" aria-hidden>
-        <path fill="#FF9900" d="M6.7 14c-.2 0-.4-.1-.4-.3L4.7 7l-1.4 6.6c0 .2-.2.3-.4.3-.2 0-.4-.1-.4-.3L0 .4C0 .2.1 0 .3 0c.2 0 .3.1.4.2l2.6 11 1.4-6.6c0-.2.2-.3.4-.3.2 0 .4.1.4.3l2.9 6.6c0 .2-.1.3-.3.3H6.7z" />
-        <path fill="#232F3E" d="M23.2 11l-2.2-6.6c0-.2-.2-.3-.4-.3-.2 0-.4.1-.4.3l-2.2 6.6c0 .2.1.3.3.3h.8c.2 0 .4-.1.4-.3l1.4-4.3 1.4 4.3c0 .2.2.3.4.3h.8c.2 0 .4-.2.3-.3z" />
-      </svg>
-    );
-  }
-  if (icon === "gcp") {
-    return (
-      <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path fill="#4285F4" d="M12 4.5L4.5 12h3.8l3.7-3.7 3.7 3.7h3.8L12 4.5z" />
-        <path fill="#34A853" d="M12 19.5l7.5-7.5h-3.8l-3.7 3.7-3.7-3.7H4.5L12 19.5z" />
-        <path fill="#FBBC04" d="M19.5 12v7.5h-7.5l3.7-3.7 3.8 3.7V12z" />
-        <path fill="#EA4335" d="M4.5 12V4.5h7.5l-3.7 3.7-3.8-3.7v7.5z" />
-      </svg>
-    );
-  }
-  return (
-    <svg className="flex-shrink-0" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <defs>
-        <linearGradient id="az-nav" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#0078D4" />
-          <stop offset="100%" stopColor="#00BCF2" />
-        </linearGradient>
-      </defs>
-      <path fill="url(#az-nav)" d="M12 3L3 21h6l3-9 3 9h6L12 3z" />
-    </svg>
-  );
-}
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -122,7 +89,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {isCloudActive && (
                       <span className="absolute inset-0 bg-white/10 rounded-full -z-10" />
                     )}
-                    <CloudIcon icon={item.icon} />
+                    <Image
+                      src={item.image}
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="flex-shrink-0 object-contain w-5 h-5"
+                    />
                     <span>{item.name}</span>
                   </Link>
                 );
