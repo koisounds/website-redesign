@@ -80,33 +80,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Dashboard Grid */}
-      <section className="section-wrapper relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <SectionCard
-            title="Skills"
-            desc="The tech stack powering my cloud architecture."
-            href="/skills"
-            variant="secondary"
-            icon="⚡"
-          />
-          <SectionCard
-            title="Experience"
-            desc="My professional journey and impact."
-            href="/experience"
-            variant="tertiary"
-            icon="💼"
-          />
-          <SectionCard
-            title="Projects"
-            desc="Case studies in automation and security."
-            href="/projects"
-            variant="primary"
-            icon="🚀"
-          />
-        </div>
-      </section>
-
       {/* Contact Banner */}
       <section className="section-wrapper pt-0">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-bg-elevated to-bg p-8 md:p-12 text-center group">
@@ -132,56 +105,5 @@ export default function Home() {
         </div>
       </section>
     </Layout>
-  );
-}
-
-function SectionCard({ title, desc, href, variant, icon }: { title: string, desc: string, href: string, variant: 'primary' | 'secondary' | 'tertiary', icon: string }) {
-  const variants = {
-    primary: {
-      hoverBorder: "hover:border-accent-primary/50",
-      iconBgValid: "group-hover:bg-accent-primary/20",
-      iconBorder: "group-hover:border-accent-primary/30",
-    },
-    secondary: {
-      hoverBorder: "hover:border-accent-secondary/50",
-      iconBgValid: "group-hover:bg-accent-secondary/20",
-      iconBorder: "group-hover:border-accent-secondary/30",
-    },
-    tertiary: {
-      hoverBorder: "hover:border-accent-tertiary/50",
-      iconBgValid: "group-hover:bg-accent-tertiary/20",
-      iconBorder: "group-hover:border-accent-tertiary/30",
-    }
-  };
-
-  const v = variants[variant];
-
-  return (
-    <Link href={href} className="group block h-full">
-      <div className={`
-        glass-card h-full p-8 flex flex-col justify-between
-        ${v.hoverBorder} transition-all duration-500
-      `}>
-        <div>
-          <div className={`
-            w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl mb-6
-            border border-white/10 ${v.iconBgValid} ${v.iconBorder} transition-colors duration-300
-          `}>
-            {icon}
-          </div>
-          <h3 className="text-2xl font-display font-bold text-white mb-3 group-hover:text-glow transition-all">
-            {title}
-          </h3>
-          <p className="text-text-secondary leading-relaxed">
-            {desc}
-          </p>
-        </div>
-
-        <div className="mt-8 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white/50 group-hover:text-white transition-colors">
-          Explore
-          <span className="group-hover:translate-x-1 transition-transform">→</span>
-        </div>
-      </div>
-    </Link>
   );
 }
