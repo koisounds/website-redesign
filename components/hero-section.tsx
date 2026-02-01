@@ -19,7 +19,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="section-wrapper pt-20 md:pt-32" id="top">
+    <section className="section-wrapper pt-20 md:pt-32 pb-0" id="top">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 lg:items-start">
         <div className="space-y-8 lg:col-span-7 animate-fade-in">
           <div

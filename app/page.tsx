@@ -34,10 +34,10 @@ const CLOUD_PROVIDERS = [
 export default function Home() {
   return (
     <Layout>
-      <HeroSection />
-
-      {/* Cloud provider project cards */}
-      <section className="section-wrapper relative z-10">
+      <div>
+        <HeroSection />
+        {/* Cloud provider project cards — no gap from hero */}
+        <section className="pt-0 pb-6 md:pb-12 relative z-10">
         <h2 className="section-title mb-8">Explore by cloud</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {CLOUD_PROVIDERS.map((cloud) => (
@@ -77,7 +77,8 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* Dashboard Grid */}
       <section className="section-wrapper relative z-10">
