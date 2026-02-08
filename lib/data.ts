@@ -219,6 +219,47 @@ const data = {
           "The architecture uses Terraform to provision a VPC with public and private subnets across availability zones. Public subnets attach to an internet gateway; private subnets use NAT or no internet route. Route tables, NACLs, and a baseline security group are defined in code. All networking is managed as Infrastructure as Code for consistency and compliance.",
       },
     },
+    {
+      name: "AWS WAF Attack Defense & CI/CD Pipeline",
+      description:
+        "Web application behind HTTPS ALB with AWS WAF blocking OWASP Top 10, rate limiting, and IP reputation rules. Simulated SQLi, XSS, floods, and scanner traffic; full Terraform + GitHub Actions CI/CD with Trivy, Checkov, and auto rollback.",
+      stack: [
+        "AWS",
+        "AWS WAF",
+        "Terraform",
+        "GitHub Actions",
+        "Route 53",
+        "ALB",
+        "ECS",
+        "ECR",
+        "ACM",
+      ],
+      slug: "aws-waf-attack-defense",
+      details: {
+        overview:
+          "A defensive architecture that places a web application behind an HTTPS load balancer with AWS WAF in front. Attackers (SQL injection, XSS, brute force, DDoS, vulnerability scanners) hit Route 53 → ALB (with ACM certificate) → WAF, which evaluates requests and returns 403 Forbidden for malicious payloads before traffic reaches the backend. ECR holds container images; a Docker-based CI/CD pipeline builds, scans, and deploys via Terraform.",
+        challenges: [
+          "Blocking OWASP Top 10 and attack patterns without breaking legitimate traffic",
+          "Detecting and mitigating bot-style traffic, credential stuffing, and request floods",
+          "Centralized logging, security dashboards, and alerting on suspicious patterns",
+          "Reproducible, secure CI/CD with vulnerability and IaC scanning and auto rollback",
+        ],
+        solutions: [
+          "Deployed AWS WAF with preconfigured OWASP ruleset plus custom deny rules (regex and header inspection)",
+          "Implemented rate limiting and IP reputation–style blocking; optional geo and ASN restrictions",
+          "Simulated SQLi, XSS, directory traversal, credential stuffing, request floods, and malicious user-agent patterns to validate rules",
+          "Terraform modules for network, ALB, ECS, WAF, logging, and IAM; GitHub Actions for build, Trivy/Checkov/tfsec scans, Terraform apply, and health-checked deploy with rollback",
+        ],
+        results: [
+          "SQLi and XSS payloads: 200 OK before WAF → 403 blocked after WAF",
+          "Flood traffic: service degraded before → rate limited and stable after",
+          "Scanner behavior: logged but allowed before → blocked by rule after",
+          "Fully declarative, reproducible infrastructure; deploy and destroy without manual console work",
+        ],
+        architecture:
+          "Route 53 provides DNS and routes the URL to the Application Load Balancer. ACM supplies the SSL certificate on the ALB for HTTPS. The ALB forwards requests to the application. AWS WAF sits in front of the app and evaluates traffic for SQL injection, XSS, bad IPs, and traffic floods, returning 403 Forbidden when attacks are detected so they never reach the backend. ECR is the container registry. Terraform organizes infrastructure into modules (network, alb, ecs, waf, logging, iam). GitHub Actions builds and tags container images, runs Trivy and Checkov/tfsec, deploys via Terraform, and deploys the application with health checks and auto rollback.",
+      },
+    },
   ] satisfies Project[],
   education: [
     {
