@@ -79,31 +79,6 @@ export default function Home() {
         </div>
         </section>
       </div>
-
-      {/* Contact Banner */}
-      <section className="section-wrapper pt-0">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-bg-elevated to-bg p-8 md:p-12 text-center group">
-          <div className="absolute inset-0 bg-gradient-to-r from-accent-primary/10 via-transparent to-accent-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-          <h2 className="relative z-10 text-3xl md:text-5xl font-display font-bold text-white mb-6">
-            Ready to scale securely?
-          </h2>
-          <p className="relative z-10 text-text-secondary text-lg max-w-2xl mx-auto mb-10">
-            Let's collaborate on building resilient, compliant, and high-performance cloud infrastructure.
-          </p>
-
-          <Link
-            href="/contact"
-            className="relative z-10 inline-flex items-center gap-3 rounded-full bg-white text-bg px-8 py-4 text-base font-bold transition-transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-          >
-            Get In Touch
-            <span>→</span>
-          </Link>
-
-          {/* Background decoration */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_50%)] pointer-events-none" />
-        </div>
-      </section>
     </Layout>
   );
 }

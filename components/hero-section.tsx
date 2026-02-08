@@ -3,14 +3,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const impactMetrics = [
-  "Lifted security score from 79% → 92% in one month.",
-  "Cut incident resolution time by 30% via Dev/Ops syncs.",
-  "Hardened GCP and kept 99.99% uptime during DDoS campaigns.",
-  "Terraform reusable modules shrank provisioning from days to hours.",
-  "Disaster recovery playbook reduced outage impact to < 4 hours.",
-];
-
 export default function HeroSection() {
   const [mounted, setMounted] = useState(false);
 
@@ -20,8 +12,8 @@ export default function HeroSection() {
 
   return (
     <section className="section-wrapper pt-20 md:pt-32 pb-0" id="top">
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 lg:items-start">
-        <div className="space-y-8 lg:col-span-7 animate-fade-in">
+      <div className="max-w-4xl">
+        <div className="space-y-8 animate-fade-in">
           <div
             className={`inline-flex items-center gap-2 rounded-full border border-accent-secondary/30 bg-accent-secondary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-accent-secondary backdrop-blur-md transition-all duration-700 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
@@ -72,21 +64,6 @@ export default function HeroSection() {
               <GlassBadge text="💼 LinkedIn" hover />
             </a>
           </div>
-        </div>
-
-        <div className="glass-card p-8 lg:col-span-5 lg:p-10 animate-slide-up bg-bg-elevated/30">
-          <div className="mb-8 flex items-center gap-3 border-b border-white/5 pb-4">
-            <div className="h-0.5 w-8 rounded-full bg-gradient-to-r from-accent-secondary to-accent-primary" />
-            <span className="font-display font-bold text-lg tracking-widest uppercase text-white">Impact Snapshot</span>
-          </div>
-          <ul className="space-y-5">
-            {impactMetrics.map((metric, index) => (
-              <li key={index} className="flex gap-4 text-base text-text-secondary group">
-                <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-accent-primary group-hover:bg-accent-secondary transition-colors duration-300 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
-                <span className="group-hover:text-white transition-colors duration-300">{metric}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>
