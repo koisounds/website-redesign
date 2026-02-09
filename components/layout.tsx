@@ -217,7 +217,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="border-t border-white/5 py-16 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-accent-tertiary/5 to-transparent pointer-events-none" />
         <p className="text-sm text-text-secondary relative z-10">
-          © {new Date().getFullYear()} Alex Galotti. Building the future of cloud.
+          © {new Date().getFullYear()} Alex Galotti
         </p>
         <div className="mt-8 flex justify-center relative z-10">
           <div className="group relative">

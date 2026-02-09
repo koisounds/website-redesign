@@ -14,6 +14,7 @@ export type Project = {
   description: string;
   stack: string[];
   link?: string;
+  githubUrl?: string;
   slug?: string;
   details?: {
     overview?: string;
@@ -258,6 +259,30 @@ const data = {
         ],
         architecture:
           "Route 53 provides DNS and routes the URL to the Application Load Balancer. ACM supplies the SSL certificate on the ALB for HTTPS. The ALB forwards requests to the application. AWS WAF sits in front of the app and evaluates traffic for SQL injection, XSS, bad IPs, and traffic floods, returning 403 Forbidden when attacks are detected so they never reach the backend. ECR is the container registry. Terraform organizes infrastructure into modules (network, alb, ecs, waf, logging, iam). GitHub Actions builds and tags container images, runs Trivy and Checkov/tfsec, deploys via Terraform, and deploys the application with health checks and auto rollback.",
+      },
+    },
+    {
+      name: "Azure App Service POC – OIDC & Terraform CI/CD",
+      description:
+        "Secure, secret-free infra and deployment pipeline for an Azure web app. Terraform, Azure App Service (Linux, Node 18), GitHub Actions, and OIDC—no client secrets.",
+      stack: [
+        "Azure",
+        "Terraform",
+        "App Service",
+        "GitHub Actions",
+        "OIDC",
+      ],
+      slug: "azure-app-poc",
+      githubUrl: "https://github.com/koisounds/Azure-app-poc",
+      details: {
+        overview:
+          "This project provisions and deploys an Azure App Service (Linux, Node 18) using Terraform, with CI/CD in GitHub Actions. Authentication is done with OpenID Connect (OIDC): the workflow requests a short-lived token from GitHub and exchanges it with Azure using a federated credential, so there are no long-lived client secrets in the repo or in GitHub. Terraform state lives in Azure Storage, also authenticated via OIDC. Push to main runs apply; pull requests run plan.",
+        solutions: [
+          "Stack: Terraform, Azure (App Service, resource group, state in Storage), GitHub Actions",
+          "Auth: OIDC federated credentials (no client secrets); Azure login and Terraform backend both use OIDC",
+          "Flow: PRs run terraform plan; pushes to main run terraform apply",
+          "Goal: Secure, secret-free infra and deployment pipeline for an Azure web app",
+        ],
       },
     },
   ] satisfies Project[],
